@@ -106,7 +106,9 @@
  If the view is set to animate transitions, the delegate will be
  called only when the animation finishes.
  */
-@property (readwrite,assign) id<PullableViewDelegate> delegate;
+@property (nonatomic, assign) IBOutlet id<PullableViewDelegate> delegate;
+
+@property (nonatomic, assign, getter=isOpened) BOOL opened;
 
 /**
  Toggles the state of the PullableView

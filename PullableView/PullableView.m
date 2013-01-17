@@ -15,6 +15,7 @@
 @synthesize animate;
 @synthesize animationDuration;
 @synthesize delegate;
+@synthesize opened = opened;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -170,6 +171,11 @@
 
 - (BOOL)toggleOnTap {
     return toggleOnTap;
+}
+
+- (void) setOpened: (BOOL) value
+{
+    [self setOpened: value animated: NO];
 }
 
 - (void)setOpened:(BOOL)op animated:(BOOL)anim {

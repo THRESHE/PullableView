@@ -31,8 +31,8 @@
     
     CGPoint closedCenter;
     CGPoint openedCenter;
-    
-    UIView *handleView;
+
+    IBOutlet UIView *handleView;
     UIPanGestureRecognizer *dragRecognizer;
     UITapGestureRecognizer *tapRecognizer;
     

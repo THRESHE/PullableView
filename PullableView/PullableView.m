@@ -50,6 +50,40 @@
     return self;
 }
 
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+
+    animate = YES;
+    animationDuration = 0.2;
+
+    toggleOnTap = YES;
+
+    if (!handleView)
+    {
+        // Creates the handle view. Subclasses should resize, reposition and style this view
+        handleView = [[UIView alloc] initWithFrame: self.bounds];
+        [self addSubview:handleView];
+        [handleView release];
+    }
+
+    dragRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
+    dragRecognizer.minimumNumberOfTouches = 1;
+    dragRecognizer.maximumNumberOfTouches = 1;
+
+    [handleView addGestureRecognizer:dragRecognizer];
+    [dragRecognizer release];
+
+    tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.numberOfTouchesRequired = 1;
+
+    [handleView addGestureRecognizer:tapRecognizer];
+    [tapRecognizer release];
+
+    opened = NO;
+}
+
 - (void)handleDrag:(UIPanGestureRecognizer *)sender {
     
     if ([sender state] == UIGestureRecognizerStateBegan) {

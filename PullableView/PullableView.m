@@ -178,10 +178,15 @@
     [self setOpened: value animated: NO];
 }
 
-- (void)setOpened:(BOOL)op animated:(BOOL)anim {
+- (void) setOpened: (BOOL) op animated: (BOOL) anim
+{
     opened = op;
-    
-    if (anim) {
+
+    if ([delegate respondsToSelector: @selector(pullableView:willChangeState:)])
+        [delegate pullableView: self willChangeState: opened];
+
+    if (anim)
+    {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:animationDuration];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -191,20 +196,16 @@
     
     self.center = opened ? openedCenter : closedCenter;
     
-    if (anim) {
-        
+    if (anim)
+    {
         // For the duration of the animation, no further interaction with the view is permitted
         dragRecognizer.enabled = NO;
         tapRecognizer.enabled = NO;
         
         [UIView commitAnimations];
-        
-    } else {
-        
-        if ([delegate respondsToSelector:@selector(pullableView:didChangeState:)]) {
-            [delegate pullableView:self didChangeState:opened];
-        }
     }
+    else if ([delegate respondsToSelector: @selector(pullableView:didChangeState:)])
+        [delegate pullableView: self didChangeState: opened];
 }
          
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {

@@ -9,6 +9,8 @@
  */
 @protocol PullableViewDelegate <NSObject>
 
+- (void) pullableView: (PullableView*) pView willChangeState: (BOOL) opened;
+
 /**
  Notifies of a changed state
  @param pView PullableView whose state was changed
